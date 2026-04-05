@@ -13,8 +13,8 @@ import {
 import { DateInput } from '@mantine/dates';
 import dayjs from 'dayjs';
 
-import { taskSchema, STATUS_OPTIONS } from '../../../lib/validations/tasks';
-import { useCreateTask, useUpdateTask } from '../hooks/useTasks';
+import { taskSchema, STATUS_OPTIONS } from '../../../lib/validations/tasks.js';
+import { useCreateTask, useUpdateTask } from '../hooks/useTasks.js';
 
 export function TaskModal({ opened, onClose, task = null }) {
     const isEditing = !!task;
@@ -33,7 +33,7 @@ export function TaskModal({ opened, onClose, task = null }) {
             title: '',
             description: '',
             status: 'pending',
-            due_date: '',
+            due_date: null,
         },
     });
 
@@ -44,14 +44,14 @@ export function TaskModal({ opened, onClose, task = null }) {
                 title: task.title || '',
                 description: task.description || '',
                 status: task.status || 'pending',
-                due_date: task.due_date || '',
+                due_date: task.due_date ? new Date(task.due_date) : null,
             });
         } else {
             reset({
                 title: '',
                 description: '',
                 status: 'pending',
-                due_date: '',
+                due_date: null,
             });
         }
     }, [task, reset]);
@@ -96,12 +96,16 @@ export function TaskModal({ opened, onClose, task = null }) {
             onClose={handleClose}
             title={isEditing ? 'Editar Tarea' : 'Nueva Tarea'}
             centered
+            size="lg"
+            radius="lg"
         >
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack gap="md">
                     <TextInput
                         label="Título"
                         placeholder="Nombre de la tarea"
+                        size="md"
+                        radius="md"
                         {...register('title')}
                         error={errors.title?.message}
                         required
@@ -111,6 +115,8 @@ export function TaskModal({ opened, onClose, task = null }) {
                         label="Descripción"
                         placeholder="Descripción opcional"
                         rows={3}
+                        size="md"
+                        radius="md"
                         {...register('description')}
                         error={errors.description?.message}
                     />
@@ -122,6 +128,8 @@ export function TaskModal({ opened, onClose, task = null }) {
                             <Select
                                 label="Estado"
                                 data={STATUS_OPTIONS}
+                                size="md"
+                                radius="md"
                                 {...field}
                                 error={errors.status?.message}
                             />
@@ -136,21 +144,33 @@ export function TaskModal({ opened, onClose, task = null }) {
                                 label="Fecha límite"
                                 placeholder="Selecciona una fecha"
                                 valueFormat="DD/MM/YYYY"
+                                size="md"
+                                radius="md"
                                 clearable
-                                value={field.value ? new Date(field.value) : null}
-                                onChange={(date) =>
-                                    field.onChange(date ? date.toISOString() : '')
-                                }
+                                value={field.value}
+                                onChange={field.onChange}
                                 error={errors.due_date?.message}
                             />
                         )}
                     />
 
                     <Group justify="flex-end" mt="md">
-                        <Button variant="default" onClick={handleClose}>
+                        <Button
+                            variant="default"
+                            onClick={handleClose}
+                            size="md"
+                            radius="md"
+                        >
                             Cancelar
                         </Button>
-                        <Button type="submit" loading={isLoading}>
+                        <Button
+                            type="submit"
+                            loading={isLoading}
+                            size="md"
+                            radius="md"
+                            variant="gradient"
+                            gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+                        >
                             {isEditing ? 'Guardar Cambios' : 'Crear Tarea'}
                         </Button>
                     </Group>

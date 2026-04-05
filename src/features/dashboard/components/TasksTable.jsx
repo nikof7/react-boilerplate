@@ -17,7 +17,7 @@ import { IoTrash, IoCheckmark, IoSearch, IoPencil } from 'react-icons/io5';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 
-import { useTasksPaginated, useUpdateTask, useDeleteTask } from '../hooks/useTasks';
+import { useTasksPaginated, useUpdateTask, useDeleteTask } from '../hooks/useTasks.js';
 
 dayjs.locale('es');
 
@@ -88,6 +88,8 @@ export function TasksTable({ onEdit }) {
                 <TextInput
                     placeholder="Buscar tareas..."
                     leftSection={<IoSearch size={16} />}
+                    size="md"
+                    radius="md"
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                     onKeyDown={handleSearch}
@@ -96,10 +98,12 @@ export function TasksTable({ onEdit }) {
                 <Select
                     placeholder="Filtrar por estado"
                     data={STATUS_OPTIONS}
+                    size="md"
+                    radius="md"
                     value={status}
                     onChange={handleStatusChange}
                     clearable
-                    style={{ width: 180 }}
+                    style={{ width: 200 }}
                 />
             </Group>
 
@@ -140,7 +144,12 @@ export function TasksTable({ onEdit }) {
                                         </Text>
                                     </Table.Td>
                                     <Table.Td>
-                                        <Badge color={STATUS_COLORS[task.status]} variant="light">
+                                        <Badge
+                                            color={STATUS_COLORS[task.status]}
+                                            variant="light"
+                                            size="md"
+                                            radius="md"
+                                        >
                                             {STATUS_LABELS[task.status]}
                                         </Badge>
                                     </Table.Td>
@@ -154,27 +163,33 @@ export function TasksTable({ onEdit }) {
                                             <ActionIcon
                                                 variant="light"
                                                 color="blue"
+                                                size="lg"
+                                                radius="md"
                                                 onClick={() => onEdit?.(task)}
                                             >
-                                                <IoPencil size={16} />
+                                                <IoPencil size={18} />
                                             </ActionIcon>
                                             {task.status !== 'completed' && (
                                                 <ActionIcon
                                                     variant="light"
                                                     color="green"
+                                                    size="lg"
+                                                    radius="md"
                                                     onClick={() => handleComplete(task)}
                                                     loading={updateTask.isPending}
                                                 >
-                                                    <IoCheckmark size={16} />
+                                                    <IoCheckmark size={18} />
                                                 </ActionIcon>
                                             )}
                                             <ActionIcon
                                                 variant="light"
                                                 color="red"
+                                                size="lg"
+                                                radius="md"
                                                 onClick={() => handleDelete(task.id)}
                                                 loading={deleteTask.isPending}
                                             >
-                                                <IoTrash size={16} />
+                                                <IoTrash size={18} />
                                             </ActionIcon>
                                         </Group>
                                     </Table.Td>
