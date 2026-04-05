@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { MantineProvider } from '@mantine/core';
+import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { QueryClientProvider } from '@tanstack/react-query';
 
@@ -20,9 +21,11 @@ dayjs.locale('es');
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <MantineProvider>
-        <Notifications position="top-right" />
-        <App />
+      <MantineProvider defaultColorScheme="light">
+        <ModalsProvider>
+          <Notifications position="top-right" />
+          <App />
+        </ModalsProvider>
       </MantineProvider>
     </QueryClientProvider>
   </StrictMode>
