@@ -213,7 +213,7 @@ import { ProjectsTable } from "../features/projects/components/ProjectsTable";
 export function Projects() {
   return (
     <AppShell>
-      <Container size="lg">
+      <Container fluid>
         <Title order={2} mb="lg">
           Proyectos
         </Title>
@@ -377,6 +377,8 @@ const { data, isLoading, error } = useTasksPaginated({
   perPage: 10,
   status: "pending",
   search: "urgente",
+  // `assignedTo` puede ser un id o un arreglo de ids
+  assignedTo: "user123",
 });
 ```
 
@@ -391,7 +393,7 @@ createTask.mutate(
     onSuccess: () => {
       // Acción después de crear
     },
-  }
+  },
 );
 ```
 
