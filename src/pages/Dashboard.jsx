@@ -28,15 +28,28 @@ export function Dashboard() {
 
     return (
         <AppShell>
-            <Container size="lg">
+            <Container fluid>
                 <Group justify="space-between" mb="lg">
-                    <Title order={2}>Mis Tareas</Title>
-                    <Button leftSection={<IoAdd size={18} />} onClick={handleNewTask}>
+                    <Title
+                        order={2}
+                        variant="gradient"
+                        gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+                    >
+                        Mis Tareas
+                    </Title>
+                    <Button
+                        leftSection={<IoAdd size={18} />}
+                        onClick={handleNewTask}
+                        size="md"
+                        radius="md"
+                        variant="gradient"
+                        gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+                    >
                         Nueva Tarea
                     </Button>
                 </Group>
 
-                <Paper withBorder p="md" radius="md">
+                <Paper p="lg" radius="lg">
                     <TasksTable onEdit={handleEditTask} />
                 </Paper>
             </Container>

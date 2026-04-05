@@ -54,7 +54,7 @@ export function LoginForm() {
         <form onSubmit={handleSubmit(onSubmit)}>
             <Stack gap="md">
                 {error && (
-                    <Alert icon={<IoAlertCircle size={16} />} color="red" variant="light">
+                    <Alert icon={<IoAlertCircle size={16} />} color="red" variant="light" radius="md">
                         {error}
                     </Alert>
                 )}
@@ -62,6 +62,8 @@ export function LoginForm() {
                 <TextInput
                     label="Email"
                     placeholder="tu@email.com"
+                    size="md"
+                    radius="md"
                     {...register('email')}
                     error={errors.email?.message}
                 />
@@ -69,11 +71,21 @@ export function LoginForm() {
                 <PasswordInput
                     label="Contraseña"
                     placeholder="Tu contraseña"
+                    size="md"
+                    radius="md"
                     {...register('password')}
                     error={errors.password?.message}
                 />
 
-                <Button type="submit" loading={loading} fullWidth>
+                <Button
+                    type="submit"
+                    loading={loading}
+                    fullWidth
+                    size="md"
+                    radius="md"
+                    variant="gradient"
+                    gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+                >
                     Iniciar Sesión
                 </Button>
             </Stack>
